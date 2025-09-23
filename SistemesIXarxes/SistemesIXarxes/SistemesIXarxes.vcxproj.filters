@@ -21,12 +21,21 @@
     <ClCompile Include="Utils\ConsoleControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="2inputSystem\InputSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="1TutorialThreads\ThreadsTutorial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\ConsoleControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="2inputSystem\InputConsts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="2inputSystem\InputSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

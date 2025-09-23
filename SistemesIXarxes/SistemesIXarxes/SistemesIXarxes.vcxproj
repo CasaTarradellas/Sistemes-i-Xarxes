@@ -123,11 +123,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="2inputSystem\InputSystem.cpp" />
     <ClCompile Include="Utils\ConsoleControl.cpp" />
     <ClCompile Include="SistemesIXarxes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="1TutorialThreads\ThreadsTutorial.h" />
+    <ClInclude Include="2inputSystem\InputConsts.h" />
+    <ClInclude Include="2inputSystem\InputSystem.h" />
     <ClInclude Include="Utils\ConsoleControl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
