@@ -5,6 +5,8 @@
 #include "Utils/Timer.h"
 #include <functional>
 #include <list>
+#include <json/json.h>
+#include <fstream>
 
 typedef std::function<int(int, int)> SumaFunction;
 typedef std::list<std::list<int>> listaDeListasDeInts;
@@ -43,6 +45,36 @@ class Tree : public INodeContent
         std::cout << "T";
 
         CC::Unlock();
+    }
+};
+
+class Player // :Codable --> Serializable + Deserializable
+{
+public:
+
+    int life = 0;
+    std::string name = "Test Player";
+    unsigned int  coins = 0;
+
+    Player() {}
+    ~Player() {}
+
+    void Decode(Json::Value json)//Des Serializar
+    {
+        life = json["life"].asInt();
+        name = json["name"].asString();
+        coins = json["coins"].asUInt();
+    }
+
+    Json::Value Encode()//Serializar
+    {
+        Json::Value json;
+
+        json["life"] = life;
+        json["name"] = name;
+        json["coins"] = coins;
+        
+        return json;
     }
 };
 
@@ -128,7 +160,7 @@ int main()
     node->SetContent<Tree>();
     Potatoe* potatoe2 = node->GetContent<Potatoe>();*/
     
-    NodeMap* myMap = new NodeMap(Vector2(20, 20), Vector2(2, 2));
+    /*NodeMap* myMap = new NodeMap(Vector2(20, 20), Vector2(2, 2));
 
     Tree* t1 = new Tree();
     Tree* t2 = new Tree();
@@ -187,7 +219,19 @@ int main()
                     n1->DrawContent(Vector2(2, 2));
                     n2->DrawContent(Vector2(2, 2));
                 });
-        });
+        });*/
+
+    // Clase Json
+    Player* player = new Player();
+    player->coins = 5;
+    player->life = 50;
+    player->name = "Capitan Test";
+
+    Json::Value newJason;
+
+    newJason["Player"] = player->Encode();
+
+    
 
     while (true)
     {

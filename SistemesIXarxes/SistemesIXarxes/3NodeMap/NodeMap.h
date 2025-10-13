@@ -8,8 +8,8 @@
 class NodeMap
 {
 public:
-	typedef std::vector<Node*>Nodevolumn;
-	typedef std::vector <Node*> NodeColumn;
+	typedef std::vector<Node*>NodeColumn;
+	typedef std::vector <NodeColumn*> NodeGrid;
 
 	typedef std::function<void(Node* node)> SafePick;
 	typedef std::function<void(std::list<Node*> nodes)> SafeMultipick;
@@ -29,10 +29,10 @@ private:
 	Vector2 _size;
 	std::mutex _sizeMutex;
 
-	Vector2 _grid;
+	NodeGrid _grid;
 	std::mutex _gridMutex;
 
-	std::mutex __safeMultiPickNodeLockMutex;
+	std::mutex _safeMultiPickNodeLockMutex;
 
 	Node* UnsafeGetNode(Vector2 position);
 };
