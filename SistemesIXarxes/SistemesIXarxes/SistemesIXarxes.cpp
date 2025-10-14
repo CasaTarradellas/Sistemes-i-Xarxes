@@ -7,6 +7,9 @@
 #include <list>
 #include <json/json.h>
 #include <fstream>
+#include "4Json/ICodable.h"
+#include "4Json/Banana.h"
+#include "4Json/Manzana.h"
 
 typedef std::function<int(int, int)> SumaFunction;
 typedef std::list<std::list<int>> listaDeListasDeInts;
@@ -48,35 +51,7 @@ class Tree : public INodeContent
     }
 };
 
-class Player // :Codable --> Serializable + Deserializable
-{
-public:
 
-    int life = 0;
-    std::string name = "Test Player";
-    unsigned int  coins = 0;
-
-    Player() {}
-    ~Player() {}
-
-    void Decode(Json::Value json)//Des Serializar
-    {
-        life = json["life"].asInt();
-        name = json["name"].asString();
-        coins = json["coins"].asUInt();
-    }
-
-    Json::Value Encode()//Serializar
-    {
-        Json::Value json;
-
-        json["life"] = life;
-        json["name"] = name;
-        json["coins"] = coins;
-        
-        return json;
-    }
-};
 
 int main()
 {
@@ -221,17 +196,52 @@ int main()
                 });
         });*/
 
-    // Clase Json
-    Player* player = new Player();
-    player->coins = 5;
-    player->life = 50;
-    player->name = "Capitan Test";
-
-    Json::Value newJason;
-
-    newJason["Player"] = player->Encode();
-
+    //Clase Json
     
+    ICodable::SaveDecodeProcces<Banana>();
+    ICodable::SaveDecodeProcces<Manzana>();
+
+    std::vector<Fruta*> frutas
+    {
+        new Banana(),
+        new Manzana(),
+        new Banana()
+    };
+
+    frutas[1]->semillas = 10000;
+
+    Json::Value jsonArray = Json::Value(Json::arrayValue);
+
+    for (Fruta* fruta : frutas)
+    {
+        jsonArray.append(fruta->Code());
+    }
+
+    std::ofstream jsonWriteFile = std::ofstream("FrutasTest.json", std::ifstream::binary);
+
+    if (!jsonWriteFile.fail())
+    {
+        jsonWriteFile << jsonArray;
+        jsonWriteFile.close();
+    }
+
+    std::cout << "Finish Write";
+
+    std::ifstream jsonReadFile = std::ifstream("FrutasTest.json", std::ifstream::binary);
+    std::vector<Fruta*> readFrutas;
+
+    if (!jsonReadFile.fail())
+    {
+        Json::Value readedJson;
+
+        jsonReadFile >> readedJson;
+
+        for (Json::Value value : readedJson)
+        {
+            Fruta* f = ICodable::FromJson<Fruta>(value);
+            readFrutas.push_back(f);
+        }
+    }
 
     while (true)
     {

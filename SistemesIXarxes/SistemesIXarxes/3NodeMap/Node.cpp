@@ -1,5 +1,6 @@
 #include "Node.h"
 #include "../Utils/ConsoleControl.h"
+
 Node::Node(Vector2 position)
 {
 	_position = position;
