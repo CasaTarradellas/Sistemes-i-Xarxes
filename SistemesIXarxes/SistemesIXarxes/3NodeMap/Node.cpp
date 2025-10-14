@@ -29,3 +29,13 @@ void Node::DrawContent(Vector2 offset)
 
 	_content->Draw(pos);
 }
+
+void Node::Lock()
+{
+	_classMutex.lock();
+}
+
+void Node::Unlock()
+{
+	_classMutex.unlock();
+}
